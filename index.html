@@ -6482,9 +6482,8 @@
 							<div class="elementor-widget-container">
 								<audio class="wp-audio-shortcode" id="audio-4426-1" preload="none" style="width: 100%;"
 									controls="controls">
-									<source type="audio/mpeg" src="media/0rLL9VPwi79Q.mp3">
-									<source type="audio/mpeg" src="media/0rLL9VPwi79Q.mp3"><a
-										href="https://eventobonito.com/wp-content/uploads/2024/10/musicaxvanos-1.mp3">https://eventobonito.com/wp-content/uploads/2024/10/musicaxvanos-1.mp3</a>
+									<source type="audio/mpeg" src="./musica.mp3">
+									<source type="audio/mpeg" src="./musica.mp3"><a href="./musica.mp3">./musica.mp3</a>
 								</audio>
 							</div>
 						</div>
@@ -9290,6 +9289,18 @@
 				setTimeout(init, 300);
 			});
 		})();
+
+
+		document.addEventListener("visibilitychange", function () {
+			const audio = document.getElementById("audio-4426-1");
+			console.log("🚀 ~ audio:", audio);
+			if (document.visibilityState === "hidden") {
+				audio.pause();
+			} else if (document.visibilityState === "visible") {
+				audio.play();
+			}
+		});
+
 	</script>
 
 </body>
