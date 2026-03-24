@@ -5561,6 +5561,182 @@
 	<link rel="stylesheet" id="eb-owl-css" href="css/iLD02EJPQDXi.css" media="all">
 	<link rel="stylesheet" id="eb-owl-theme-css" href="css/LE1Ae0UJMgP2.css" media="all">
 	<link rel="stylesheet" id="moove_gdpr_frontend-css" href="css/LLhccqchoEvG.css" media="all">
+
+	<!-- CSS Animaciones Elegantes y Suaves  ZARLO -->
+	<style id="custom-scroll-animations">
+		/* Elementos invisibles antes de animarse */
+		.elementor-invisible {
+			opacity: 0 !important;
+			visibility: visible !important;
+		}
+
+		/* Base para todas las animaciones - Timing elegante y suave */
+		.elementor-invisible[class*="animate-"] {
+			animation-duration: 1.2s !important;
+			animation-fill-mode: both !important;
+			animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+		}
+
+		/* ========== ANIMACIONES ELEGANTES Y MINIMALISTAS ========== */
+
+		/* FadeIn - Aparición suave con ligero movimiento */
+		@keyframes elegantFadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.animate-fadeIn,
+		.animate-fadein,
+		.animate-fadeIn {
+			animation-name: elegantFadeIn !important;
+		}
+
+		/* FadeInLeft - Deslizamiento suave desde la izquierda */
+		@keyframes elegantFadeInLeft {
+			from {
+				opacity: 0;
+				transform: translateX(-50px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
+
+		.animate-fadeInLeft,
+		.animate-fadeinleft {
+			animation-name: elegantFadeInLeft !important;
+		}
+
+		/* FadeInRight - Deslizamiento suave desde la derecha */
+		@keyframes elegantFadeInRight {
+			from {
+				opacity: 0;
+				transform: translateX(50px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
+
+		.animate-fadeInRight,
+		.animate-fadeinright {
+			animation-name: elegantFadeInRight !important;
+		}
+
+		/* FadeInUp - Elevación suave desde abajo */
+		@keyframes elegantFadeInUp {
+			from {
+				opacity: 0;
+				transform: translateY(50px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.animate-fadeInUp,
+		.animate-fadeinup {
+			animation-name: elegantFadeInUp !important;
+		}
+
+		/* FadeInDown - Descenso suave desde arriba */
+		@keyframes elegantFadeInDown {
+			from {
+				opacity: 0;
+				transform: translateY(-50px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.animate-fadeInDown,
+		.animate-fadeindown {
+			animation-name: elegantFadeInDown !important;
+		}
+
+		/* ZoomIn - Aparición con zoom elegante */
+		@keyframes elegantZoomIn {
+			from {
+				opacity: 0;
+				transform: scale(0.85);
+			}
+
+			to {
+				opacity: 1;
+				transform: scale(1);
+			}
+		}
+
+		.animate-zoomIn,
+		.animate-zoomin {
+			animation-name: elegantZoomIn !important;
+		}
+
+		/* BounceIn - Efecto suave de rebote */
+		@keyframes elegantBounceIn {
+			0% {
+				opacity: 0;
+				transform: scale(0.9) translateY(30px);
+			}
+
+			60% {
+				opacity: 1;
+				transform: scale(1.02) translateY(-5px);
+			}
+
+			100% {
+				transform: scale(1) translateY(0);
+			}
+		}
+
+		.animate-bounceIn,
+		.animate-bouncein {
+			animation-name: elegantBounceIn !important;
+		}
+
+		/* Estado visible - Asegurar que se vea correctamente */
+		.elementor-invisible.is-visible {
+			opacity: 1 !important;
+			visibility: visible !important;
+		}
+
+		/* Smooth scroll */
+		html {
+			scroll-behavior: smooth;
+		}
+
+		/* Optimización de rendimiento */
+		.elementor-invisible {
+			will-change: opacity, transform;
+		}
+
+		.elementor-invisible.is-visible {
+			will-change: auto;
+		}
+
+		/* Sobrescribir cualquier estilo de Elementor que interfiera */
+		.elementor-widget.elementor-invisible[class*="animate-"] {
+			animation-play-state: running !important;
+			pointer-events: auto !important;
+		}
+	</style>
+
 	<style id="moove_gdpr_frontend-inline-css">
 		#moove_gdpr_cookie_modal .moove-gdpr-modal-content .moove-gdpr-tab-main h3.tab-title,
 		#moove_gdpr_cookie_modal .moove-gdpr-modal-content .moove-gdpr-tab-main span.tab-title,
@@ -9014,6 +9190,92 @@
 
 
 	<script>Dropzone.autoDiscover = false; </script>
+
+	<!-- Script de Animaciones Elegantes  ANIMACION ZARLO -->
+	<script>
+		(function () {
+			'use strict';
+
+			// Extraer tipo de animación desde data-settings
+			function getAnimationType(element) {
+				const dataSettings = element.getAttribute('data-settings');
+				if (!dataSettings) return 'fadeIn';
+
+				try {
+					const settings = JSON.parse(dataSettings.replace(/"/g, '"'));
+					const animation = settings._animation || settings.animation || 'fadeIn';
+					return animation.toLowerCase().replace(/[^a-z]/gi, '');
+				} catch (e) {
+					return 'fadeIn';
+				}
+			}
+
+			// Extraer delay desde data-settings
+			function getAnimationDelay(element) {
+				const dataSettings = element.getAttribute('data-settings');
+				if (!dataSettings) return 0;
+
+				try {
+					const settings = JSON.parse(dataSettings.replace(/"/g, '"'));
+					return parseInt(settings._animation_delay || 0);
+				} catch (e) {
+					return 0;
+				}
+			}
+
+			// Configuración del Intersection Observer
+			const observer = new IntersectionObserver(function (entries) {
+				entries.forEach(function (entry) {
+					// Activar cuando el elemento sea 10% visible
+					if (entry.isIntersecting && entry.intersectionRatio >= 0.05) {
+						const element = entry.target;
+						const animationType = getAnimationType(element);
+						const delay = getAnimationDelay(element);
+
+						// Aplicar animación después del delay
+						setTimeout(function () {
+							// Añadir clase de animación
+							element.classList.add('animate-' + animationType);
+							element.classList.add('is-visible');
+
+							// Forzar estilos inline para mayor especificidad
+							element.style.opacity = '1';
+							element.style.visibility = 'visible';
+
+							// Dejar de observar
+							observer.unobserve(element);
+						}, delay);
+					}
+				});
+			}, {
+				root: null,
+				rootMargin: '0px 0px -50px 0px', // Activar un poco antes
+				threshold: [0, 0.05, 0.1]
+			});
+
+			// Inicializar animaciones
+			function init() {
+				const elements = document.querySelectorAll('.elementor-invisible');
+				console.log('✨ Animaciones inicializadas:', elements.length, 'elementos');
+
+				elements.forEach(function (el) {
+					observer.observe(el);
+				});
+			}
+
+			// Ejecutar cuando el DOM esté listo
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', init);
+			} else {
+				init();
+			}
+
+			// Re-inicializar después del load completo
+			window.addEventListener('load', function () {
+				setTimeout(init, 300);
+			});
+		})();
+	</script>
 
 </body>
 
