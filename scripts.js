@@ -112,8 +112,7 @@ function generarInputsAcompanantes(cantidad) {
         id="acompanante_${i}" 
         name="acompanante_${i}"
         class="elementor-field elementor-field-textual elementor-size-sm input-acompanante" 
-        placeholder="Nombre completo del acompañante ${i}"
-        required
+        placeholder="Nombre completo del acompañante ${i} (opcional)"
         style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; transition: all 0.3s;"
       />
     `;
@@ -155,27 +154,11 @@ function obtenerNombresAcompanantes() {
 }
 
 /**
- * Valida que todos los inputs de acompañantes estén llenos
- * @returns {boolean} true si todos están llenos, false si falta alguno
+ * Valida los inputs de acompañantes (ahora siempre retorna true porque son opcionales)
+ * @returns {boolean} true siempre
  */
 function validarNombresAcompanantes() {
-  const inputs = document.querySelectorAll(".input-acompanante");
-
-  if (inputs.length === 0) {
-    return true; // No hay inputs, validación exitosa
-  }
-
-  for (let input of inputs) {
-    if (!input.value.trim()) {
-      input.focus();
-      input.style.borderColor = "#ef4444";
-      setTimeout(() => {
-        input.style.borderColor = "#ddd";
-      }, 2000);
-      return false;
-    }
-  }
-
+  // Los nombres son opcionales, siempre válido
   return true;
 }
 
@@ -226,7 +209,7 @@ Soy *${nombre}* y confirmo mi asistencia a los XV años de Priscilla 🩵
 
 Soy *${nombre}* y confirmo mi asistencia a los XV años de Priscilla 🩵
 
-✅ *Número de asistentes:* ${numeroInvitados} personas`;
+`;
 
     // Agregar nombres de acompañantes si existen
     if (nombresAcompanantes && nombresAcompanantes.length > 0) {
@@ -234,6 +217,8 @@ Soy *${nombre}* y confirmo mi asistencia a los XV años de Priscilla 🩵
       nombresAcompanantes.forEach((nombreAcomp, index) => {
         mensaje += `\n   ${index + 1}. ${nombreAcomp}`;
       });
+    } else {
+      mensaje += `\n\n(Sin acompañantes registrados)`;
     }
 
     mensaje += `\n\n¡Nos vemos el 23 de Mayo! 🎉`;
@@ -281,12 +266,7 @@ document
       return alert("Error: No se pudo obtener el número de asistentes.");
     }
 
-    // Validar nombres de acompañantes si los hay
-    if (!validarNombresAcompanantes()) {
-      return alert("Por favor, ingresa los nombres de todos tus acompañantes.");
-    }
-
-    // Obtener nombres de acompañantes
+    // Obtener nombres de acompañantes (son opcionales)
     const nombresAcompanantes = obtenerNombresAcompanantes();
     console.log("🚀 ~ nombresAcompanantes:", nombresAcompanantes);
 
