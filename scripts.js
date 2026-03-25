@@ -14,7 +14,7 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 // Obtener invitados de Firestore
-const querySnapshot = await db.collection("invitadosXVDULCE2323").get();
+const querySnapshot = await db.collection("invitadosXVPriscilla2026").get();
 const invitados = querySnapshot.docs.map((doc) => ({
   id: doc.id,
   ...doc.data(),
@@ -72,16 +72,46 @@ if (invitado) {
 function enviarWhatsApp(nombre, numeroInvitados) {
   console.log("🚀 ~ enviarWhatsApp ~ numeroInvitados:", numeroInvitados);
   console.log("🚀 ~ enviarWhatsApp ~ nombre:", nombre);
-  const numeroTelefono = "+5214731642105"; // Reemplaza con el número de teléfono al que deseas enviar el mensaje
-  let mensaje = `Hola soy ${nombre} Confirmo mi invitación con el número total de asistentes: ${numeroInvitados}`;
-  if (numeroInvitados == "No podra asistir") {
-    mensaje = `Hola soy ${nombre}, confirmo que no podre asistir.`;
+  const numeroTelefono = "+5219831146444";
+  let mensaje = "";
+
+  // No asistirá
+  if (
+    numeroInvitados == "0" ||
+    numeroInvitados == 0 ||
+    numeroInvitados == "No podra asistir"
+  ) {
+    mensaje = `¡Hola! 👋
+
+Soy *${nombre}*
+
+Lamentablemente no podré asistir a los XV años de Maritza 😔
+
+Les deseo una celebración increíble 🩵✨`;
   }
-  if (numeroInvitados == 0) {
-    mensaje = `Hola soy ${nombre}, confirmo mi invitación.`;
+  // Asistirá con 1 persona
+  else if (numeroInvitados == "1" || numeroInvitados == 1) {
+    mensaje = `¡Hola! 👋
+
+Soy *${nombre}* y confirmo mi asistencia a los XV años de Maritza 🩵
+
+✅ *Asistiré*
+
+¡Nos vemos el 11 de Abril! 🎉`;
   }
+  // Asistirá con múltiples personas
+  else {
+    mensaje = `¡Hola! 👋
+
+Soy *${nombre}* y confirmo mi asistencia a los XV años de Maritza 🩵
+
+✅ *Número de asistentes:* ${numeroInvitados} personas
+
+¡Nos vemos el 11 de Abril! 🎉`;
+  }
+
   const url = `https://api.whatsapp.com/send?phone=${numeroTelefono}&text=${encodeURIComponent(
-    mensaje
+    mensaje,
   )}`;
   window.open(url, "_blank");
 }
@@ -89,14 +119,14 @@ function enviarWhatsApp(nombre, numeroInvitados) {
 function enviarWhatsAppForm(nombre_form, anecdota_form, deseos_form) {
   // console.log("🚀 ~ enviarWhatsApp ~ numeroInvitados:", numeroInvitados);
   // console.log("🚀 ~ enviarWhatsApp ~ nombre:", nombre);
-  const numeroTelefono = "+5214731642105"; // Reemplaza con el número de teléfono al que deseas enviar el mensaje
+  const numeroTelefono = "+5219831146444"; // Reemplaza con el número de teléfono al que deseas enviar el mensaje
   let mensaje = `Hola soy ${nombre_form},\nConfirmó mi invitación. `;
 
   mensaje = mensaje + "\n\n*Anecdota juntos:* " + anecdota_form;
   mensaje = mensaje + "\n\n*Palabras o buenos deseos:* " + deseos_form;
 
   const url = `https://api.whatsapp.com/send?phone=${numeroTelefono}&text=${encodeURIComponent(
-    mensaje
+    mensaje,
   )}`;
   window.open(url, "_blank");
 }
@@ -105,15 +135,18 @@ function enviarWhatsAppForm(nombre_form, anecdota_form, deseos_form) {
 
 document
   .getElementById("btn_send_counterzz")
-  .addEventListener("click", function () {
+  .addEventListener("click", function (e) {
+    e.preventDefault(); // Prevenir envío del formulario
+
     const nombreInvitado =
       document.getElementById("nombreInvitado").textContent;
     const numeroInvitados = document.getElementById("listaInvitados").value;
+    console.log("🚀 ~ numeroInvitados:", numeroInvitados);
 
     if (nombreInvitado == "Invitado no encontrado.") {
       return alert("Invitado no registrado.");
     }
-    if (numeroInvitados) {
+    if (numeroInvitados && numeroInvitados != "-1" && numeroInvitados != -1) {
       enviarWhatsApp(nombreInvitado, numeroInvitados);
     } else {
       return alert("Por favor, selecciona el número de asistentes.");
@@ -134,12 +167,12 @@ document
 //     enviarWhatsAppForm(nombre_form, anecdota_form, deseos_form);
 //   });
 
-document.addEventListener("visibilitychange", function () {
-  const audio = document.getElementById("audio-33769-1");
-  console.log("🚀 ~ audio:", audio);
-  if (document.visibilityState === "hidden") {
-    audio.pause();
-  } else if (document.visibilityState === "visible") {
-    audio.play();
-  }
-});
+// document.addEventListener("visibilitychange", function () {
+//   const audio = document.getElementById("audio-33769-1");
+//   console.log("🚀 ~ audio:", audio);
+//   if (document.visibilityState === "hidden") {
+//     audio.pause();
+//   } else if (document.visibilityState === "visible") {
+//     audio.play();
+//   }
+// });
