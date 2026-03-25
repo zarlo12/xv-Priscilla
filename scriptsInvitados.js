@@ -132,17 +132,15 @@ function mostrarCargando(mostrar) {
 function actualizarEstadisticas() {
   const totalInvitados = allInvitados.length;
 
-  // Contar solo los asistentes confirmados
-  // Si hay nombres de acompañantes, contar: 1 (invitado principal) + cantidad de nombres
-  // Si NO hay nombres de acompañantes, contar solo 1 (el invitado principal)
+  // Contar todos los asistentes confirmados
+  // Suma el numeroConfirmados de cada invitado que haya confirmado
   const totalAsistentes = allInvitados.reduce((sum, inv) => {
     if (inv.confirmado) {
-      // Contar invitado principal (1) + acompañantes con nombre ingresado
-      const cantidadAcompanantes =
-        inv.nombresAcompanantes && Array.isArray(inv.nombresAcompanantes)
-          ? inv.nombresAcompanantes.length
-          : 0;
-      return sum + 1 + cantidadAcompanantes; // 1 = invitado principal
+      // Sumar el número de personas confirmadas (invitado + acompañantes)
+      const cantidadConfirmada = parseInt(
+        inv.numeroConfirmados || inv.numeroInvitados || 0,
+      );
+      return sum + cantidadConfirmada;
     }
     return sum;
   }, 0);
