@@ -7671,26 +7671,12 @@
 													<input type="hidden" name="queried_id" value="4426">
 
 													<div class="elementor-form-fields-wrapper elementor-labels-">
-														<div
-															class="elementor-field-type-select elementor-field-group elementor-column elementor-field-group-select_invitations elementor-col-100 elementor-field-required">
-															<label for="form-field-select_invitations"
-																class="elementor-field-label elementor-screen-only">
-																Asistentes </label>
-															<div
-																class="elementor-field elementor-select-wrapper remove-before ">
-																<div class="select-caret-down-wrapper">
-																	<i aria-hidden="true" class="eicon-caret-down"></i>
-																</div>
-																<select name="form_fields[select_invitations]"
-																	id="listaInvitados"
-																	class="elementor-field-textual elementor-size-sm"
-																	required="required">
-																	<option value=" -1">Selecciona el número de
-																		asistentes </option>
-																	<option value=" 0">No podré asistir </option>
-																</select>
-															</div>
+														<!-- Select oculto, se usa solo para mantener compatibilidad -->
+														<input type="hidden" id="listaInvitados" value="">
+														<!-- Contenedor dinámico para nombres de acompañantes -->
+														<div id="contenedorNombresAcompanantes" style="display: none;">
 														</div>
+
 														<div
 															class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
 															<button class="elementor-button elementor-size-sm"

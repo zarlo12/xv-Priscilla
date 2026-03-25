@@ -131,10 +131,14 @@ function mostrarCargando(mostrar) {
 // ===== ACTUALIZAR ESTADÍSTICAS =====
 function actualizarEstadisticas() {
   const totalInvitados = allInvitados.length;
-  const totalAsistentes = allInvitados.reduce(
-    (sum, inv) => sum + parseInt(inv.numeroInvitados || 0),
-    0,
-  );
+
+  // Contar solo los asistentes confirmados
+  const totalAsistentes = allInvitados.reduce((sum, inv) => {
+    if (inv.confirmado) {
+      return sum + parseInt(inv.numeroConfirmados || inv.numeroInvitados || 0);
+    }
+    return sum;
+  }, 0);
 
   document.getElementById("totalInvitados").textContent = totalInvitados;
   document.getElementById("totalAsistentes").textContent = totalAsistentes;
@@ -203,6 +207,49 @@ async function generarListaInvitados(filtro = "") {
       }</span>
     `;
 
+    // Mostrar estado de confirmación
+    const estadoConfirmacion = document.createElement("div");
+    estadoConfirmacion.classList.add("invitado-info");
+    estadoConfirmacion.style.marginTop = "8px";
+
+    if (invitado.confirmado) {
+      estadoConfirmacion.innerHTML = `
+        <span class="invitado-info-icon">✅</span>
+        <span style="color: #10b981; font-weight: 500;">Confirmado: ${invitado.numeroConfirmados || invitado.numeroInvitados} ${
+          (invitado.numeroConfirmados || invitado.numeroInvitados) === 1
+            ? "persona"
+            : "personas"
+        }</span>
+      `;
+    } else {
+      estadoConfirmacion.innerHTML = `
+        <span class="invitado-info-icon">⏳</span>
+        <span style="color: #f59e0b; font-weight: 500;">Sin confirmar</span>
+      `;
+    }
+
+    // Mostrar nombres de acompañantes si existen
+    let acompanantesDiv = null;
+    if (
+      invitado.nombresAcompanantes &&
+      invitado.nombresAcompanantes.length > 0
+    ) {
+      acompanantesDiv = document.createElement("div");
+      acompanantesDiv.classList.add("invitado-acompanantes");
+      acompanantesDiv.style.marginTop = "12px";
+      acompanantesDiv.style.padding = "10px";
+      acompanantesDiv.style.backgroundColor = "#f9fafb";
+      acompanantesDiv.style.borderRadius = "8px";
+      acompanantesDiv.style.fontSize = "13px";
+
+      let acompanantesHTML = `<div style="font-weight: 600; color: #374151; margin-bottom: 6px;">👥 Acompañantes:</div>`;
+      invitado.nombresAcompanantes.forEach((nombre, idx) => {
+        acompanantesHTML += `<div style="color: #6b7280; padding: 2px 0;">   ${idx + 1}. ${nombre}</div>`;
+      });
+
+      acompanantesDiv.innerHTML = acompanantesHTML;
+    }
+
     const url = `${baseUrl}?codigo=${invitado.codigo}`;
     const urlDiv = document.createElement("div");
     urlDiv.classList.add("invitado-url");
@@ -229,6 +276,10 @@ async function generarListaInvitados(filtro = "") {
 
     card.appendChild(nombre);
     card.appendChild(infoAsistentes);
+    card.appendChild(estadoConfirmacion);
+    if (acompanantesDiv) {
+      card.appendChild(acompanantesDiv);
+    }
     card.appendChild(urlDiv);
     card.appendChild(actionsDiv);
     container.appendChild(card);
