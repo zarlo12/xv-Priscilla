@@ -176,7 +176,7 @@ function enviarWhatsApp(nombre, numeroInvitados, nombresAcompanantes = []) {
     "🚀 ~ enviarWhatsApp ~ nombresAcompanantes:",
     nombresAcompanantes,
   );
-  const numeroTelefono = "+5219831146444";
+  const numeroTelefono = "++19153834803";
   let mensaje = "";
 
   // No asistirá
@@ -233,7 +233,7 @@ Soy *${nombre}* y confirmo mi asistencia a los XV años de Priscilla 🩵
 function enviarWhatsAppForm(nombre_form, anecdota_form, deseos_form) {
   // console.log("🚀 ~ enviarWhatsApp ~ numeroInvitados:", numeroInvitados);
   // console.log("🚀 ~ enviarWhatsApp ~ nombre:", nombre);
-  const numeroTelefono = "+5219831146444"; // Reemplaza con el número de teléfono al que deseas enviar el mensaje
+  const numeroTelefono = "++19153834803"; // Reemplaza con el número de teléfono al que deseas enviar el mensaje
   let mensaje = `Hola soy ${nombre_form},\nConfirmó mi invitación. `;
 
   mensaje = mensaje + "\n\n*Anecdota juntos:* " + anecdota_form;
