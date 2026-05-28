@@ -60,13 +60,13 @@ const codigo = obtenerCodigo();
 
 const invitado = invitados.find((inv) => inv.codigo === codigo);
 
-if (invitado) {
-  actualizarHTMLConInvitado(invitado);
-} else {
-  // Mensaje o acción si el invitado no se encuentra
-  const nombreInvitadoElem = document.getElementById("nombreInvitado");
-  nombreInvitadoElem.textContent = "Invitado no encontrado.";
-}
+// if (invitado) {
+//   actualizarHTMLConInvitado(invitado);
+// } else {
+//   // Mensaje o acción si el invitado no se encuentra
+//   const nombreInvitadoElem = document.getElementById("nombreInvitado");
+//   nombreInvitadoElem.textContent = "Invitado no encontrado.";
+// }
 
 // Función para enviar el mensaje de WhatsApp
 function enviarWhatsApp(nombre, numeroInvitados) {
@@ -81,7 +81,7 @@ function enviarWhatsApp(nombre, numeroInvitados) {
     mensaje = `Hola soy ${nombre}, confirmo mi invitación.`;
   }
   const url = `https://api.whatsapp.com/send?phone=${numeroTelefono}&text=${encodeURIComponent(
-    mensaje
+    mensaje,
   )}`;
   window.open(url, "_blank");
 }
@@ -96,29 +96,29 @@ function enviarWhatsAppForm(nombre_form, anecdota_form, deseos_form) {
   mensaje = mensaje + "\n\n*Palabras o buenos deseos:* " + deseos_form;
 
   const url = `https://api.whatsapp.com/send?phone=${numeroTelefono}&text=${encodeURIComponent(
-    mensaje
+    mensaje,
   )}`;
   window.open(url, "_blank");
 }
 
 // Agregar evento al botón de confirmar
 
-document
-  .getElementById("btn_send_counterzz")
-  .addEventListener("click", function () {
-    const nombreInvitado =
-      document.getElementById("nombreInvitado").textContent;
-    const numeroInvitados = document.getElementById("listaInvitados").value;
+// document
+//   .getElementById("btn_send_counterzz")
+//   .addEventListener("click", function () {
+//     const nombreInvitado =
+//       document.getElementById("nombreInvitado").textContent;
+//     const numeroInvitados = document.getElementById("listaInvitados").value;
 
-    if (nombreInvitado == "Invitado no encontrado.") {
-      return alert("Invitado no registrado.");
-    }
-    if (numeroInvitados) {
-      enviarWhatsApp(nombreInvitado, numeroInvitados);
-    } else {
-      return alert("Por favor, selecciona el número de asistentes.");
-    }
-  });
+//     if (nombreInvitado == "Invitado no encontrado.") {
+//       return alert("Invitado no registrado.");
+//     }
+//     if (numeroInvitados) {
+//       enviarWhatsApp(nombreInvitado, numeroInvitados);
+//     } else {
+//       return alert("Por favor, selecciona el número de asistentes.");
+//     }
+//   });
 
 // document
 //   .getElementById("confirmarFomrulario")
@@ -135,7 +135,7 @@ document
 //   });
 
 document.addEventListener("visibilitychange", function () {
-  const audio = document.getElementById("audio-33769-1");
+  const audio = document.getElementById("audio-4426-1");
   console.log("🚀 ~ audio:", audio);
   if (document.visibilityState === "hidden") {
     audio.pause();
