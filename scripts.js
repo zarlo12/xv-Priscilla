@@ -97,7 +97,7 @@ Soy *${nombre}* y confirmo mi asistencia a los XV años de Ximena 🦋
 
 ✅ *Asistiré*
 
-¡Nos vemos el 11 de Abril! 🎉`;
+¡Nos vemos el 27 de junio! 🎉`;
   }
   // Asistirá con múltiples personas
   else {
@@ -107,7 +107,7 @@ Soy *${nombre}* y confirmo mi asistencia a los XV años de Ximena 🦋
 
 ✅ *Número de asistentes:* ${numeroInvitados} personas
 
-¡Nos vemos el 11 de Abril! 🎉`;
+¡Nos vemos el 27 de junio! 🎉`;
   }
 
   const url = `https://api.whatsapp.com/send?phone=${numeroTelefono}&text=${encodeURIComponent(
